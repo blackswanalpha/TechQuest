@@ -1,17 +1,11 @@
 import sys
 import sqlite3
-from datetime import datetime
-
-from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QTabWidget
-)
-from PyQt6.QtGui import QFont, QColor
-from PyQt6.QtCore import Qt
-
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QTabWidget
 from daily_tasks_tab import DailyTasksTab
 from skill_mastery_tab import SkillMasteryTab
 from progress_tracking_tab import ProgressTrackingTab
 from project_certification_tab import ProjectCertificationTab
+from weekly_progress_tab import WeeklyProgressTab
 
 
 class DevelopmentTracker(QMainWindow):
@@ -35,24 +29,29 @@ class DevelopmentTracker(QMainWindow):
         self.skill_mastery_tab = SkillMasteryTab(self)
         self.progress_tracking_tab = ProgressTrackingTab(self)
         self.project_certification_tab = ProjectCertificationTab(self)
+        self.weekly_progress_tab = WeeklyProgressTab(self)
 
         # Add tabs to tab widget
         self.tab_widget.addTab(self.daily_tasks_tab, "Daily Tasks")
         self.tab_widget.addTab(self.skill_mastery_tab, "Skill Mastery")
         self.tab_widget.addTab(self.progress_tracking_tab, "Progress Tracking")
-        self.tab_widget.addTab(self.project_certification_tab, "Projects & Certifications")
+        self.tab_widget.addTab(self.project_certification_tab, "Project Certification")
+        self.tab_widget.addTab(self.weekly_progress_tab, "Weekly Progress")
 
+        # Add tab widget to main layout
         main_layout.addWidget(self.tab_widget)
 
+        # Set main widget layout
         main_widget.setLayout(main_layout)
+
+        # Set central widget of main window
         self.setCentralWidget(main_widget)
 
     def init_database(self):
-        """Initialize SQLite database for tracking"""
         self.conn = sqlite3.connect('development_tracker.db')
         self.cursor = self.conn.cursor()
 
-        # Create tables
+        # Create tables if they don't exist
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS daily_tasks (
             id INTEGER PRIMARY KEY,
@@ -61,8 +60,8 @@ class DevelopmentTracker(QMainWindow):
             task_description TEXT,
             planned_duration REAL,
             actual_duration REAL,
-            status TEXT,
             complexity INTEGER,
+            status TEXT,
             points_earned REAL,
             notes TEXT
         )
@@ -81,18 +80,9 @@ class DevelopmentTracker(QMainWindow):
         self.conn.commit()
 
 
-def main():
-    app = QApplication(sys.argv)
-
-    # Set application style
-    app.setStyle('Fusion')
-
-    # Create and show the main window
-    tracker = DevelopmentTracker()
-    tracker.show()
-
-    sys.exit(app.exec())
-
-
+# Run the application
 if __name__ == "__main__":
-    main()
+    app = QApplication(sys.argv)
+    window = DevelopmentTracker()
+    window.show()
+    sys.exit(app.exec())

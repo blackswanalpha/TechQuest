@@ -1,4 +1,5 @@
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QTableWidget, QTableWidgetItem, QHeaderView
+from PyQt6.QtCore import Qt
 
 
 class SkillMasteryTab(QWidget):
@@ -6,46 +7,46 @@ class SkillMasteryTab(QWidget):
         super().__init__(parent)
         self.parent = parent
 
-        layout = QVBoxLayout()
+        self.layout = QVBoxLayout()
 
-        # Skill Mastery Table
-        self.skill_table = QTableWidget()
-        self.skill_table.setColumnCount(5)
-        self.skill_table.setHorizontalHeaderLabels([
-            "Skill Area", "Max Points",
-            "Points Earned", "Proficiency", "Progress"
-        ])
+        self.table = QTableWidget()
+        self.table.setColumnCount(4)
+        self.table.setHorizontalHeaderLabels(["Skill Area", "Max Points", "Points Earned", "Proficiency Level"])
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
-        # Initialize default skills
-        default_skills = [
-            ("DevOps", 500),
-            ("Next.js", 500),
-            ("Microservices", 500),
-            ("CI/CD", 500),
-            ("Kubernetes", 500),
-            ("Project Management", 500)
-        ]
+        self.layout.addWidget(self.table)
 
-        for skill, max_points in default_skills:
-            self.parent.cursor.execute('''
-            INSERT OR IGNORE INTO skill_mastery (skill_area, max_points, points_earned, proficiency_level)
-            VALUES (?, ?, 0, 'Beginner')
-            ''', (skill, max_points))
-
-        self.parent.conn.commit()
+        self.setLayout(self.layout)
 
         self.load_skills()
 
-        layout.addWidget(self.skill_table)
-        self.setLayout(layout)
-
     def load_skills(self):
-        """Load skills from the database into the table"""
-        self.skill_table.setRowCount(0)
         self.parent.cursor.execute("SELECT * FROM skill_mastery")
         skills = self.parent.cursor.fetchall()
 
-        for row_number, row_data in enumerate(skills):
-            self.skill_table.insertRow(row_number)
-            for column_number, data in enumerate(row_data[1:]):
-                self.skill_table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+        self.table.setRowCount(len(skills))
+
+        for row, skill in enumerate(skills):
+            for col, value in enumerate(skill[1:]):
+                self.table.setItem(row, col, QTableWidgetItem(str(value)))
+
+        self.update_proficiency_levels()
+
+    def update_proficiency_levels(self):
+        for row in range(self.table.rowCount()):
+            points_earned = float(self.table.item(row, 2).text())
+            max_points = float(self.table.item(row, 1).text())
+            proficiency_level = self.calculate_proficiency_level(points_earned, max_points)
+            self.table.setItem(row, 3, QTableWidgetItem(proficiency_level))
+
+    def calculate_proficiency_level(self, points_earned, max_points):
+        percentage = (points_earned / max_points) * 100
+
+        if percentage >= 90:
+            return "Expert"
+        elif percentage >= 75:
+            return "Advanced"
+        elif percentage >= 50:
+            return "Intermediate"
+        else:
+            return "Beginner"
