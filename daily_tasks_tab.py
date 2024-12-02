@@ -83,6 +83,8 @@ class DailyTasksTab(QWidget):
             color.setNamedColor("yellow")
         elif task[6] == "Partially Completed":
             color.setNamedColor("blue")
+        elif task[6] == "Not Started":
+            color.setNamedColor("white")
 
         palette = card.palette()
         palette.setColor(QPalette.ColorRole.Window, color)

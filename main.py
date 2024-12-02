@@ -1,6 +1,8 @@
 import sys
 import sqlite3
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QTabWidget
+
+from home_tab import HomeTab
 from daily_tasks_tab import DailyTasksTab
 from skill_mastery_tab import SkillMasteryTab
 from progress_tracking_tab import ProgressTrackingTab
@@ -25,6 +27,7 @@ class DevelopmentTracker(QMainWindow):
         self.tab_widget = QTabWidget()
 
         # Create tabs
+        self.home_tab = HomeTab(self)
         self.daily_tasks_tab = DailyTasksTab(self)
         self.skill_mastery_tab = SkillMasteryTab(self)
         self.progress_tracking_tab = ProgressTrackingTab(self)
@@ -32,6 +35,7 @@ class DevelopmentTracker(QMainWindow):
         self.weekly_progress_tab = WeeklyProgressTab(self)
 
         # Add tabs to tab widget
+        self.tab_widget.addTab(self.home_tab, "Home")
         self.tab_widget.addTab(self.daily_tasks_tab, "Daily Tasks")
         self.tab_widget.addTab(self.skill_mastery_tab, "Skill Mastery")
         self.tab_widget.addTab(self.progress_tracking_tab, "Progress Tracking")

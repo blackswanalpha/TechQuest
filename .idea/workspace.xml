@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="963a925f-eb8d-4c1f-9491-38c05d6cb70c" name="Changes" comment="milestone 2">
-      <change afterPath="$PROJECT_DIR$/weekly_progress_tab.py" afterDir="false" />
+    <list default="true" id="963a925f-eb8d-4c1f-9491-38c05d6cb70c" name="Changes" comment="milestone 3">
+      <change afterPath="$PROJECT_DIR$/database_setup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/home_tab.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/daily_tasks_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/daily_tasks_tab.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/progress_tracking_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/progress_tracking_tab.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skill_mastery_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/skill_mastery_tab.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weekly_progress_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/weekly_progress_tab.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732830586694</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="milestone 3">
+      <option name="closed" value="true" />
+      <created>1733124972612</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733124972612</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -127,14 +138,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="milestone 1" />
     <MESSAGE value="milestone 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="milestone 2" />
+    <MESSAGE value="milestone 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="milestone 3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>50</line>
+          <line>54</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
