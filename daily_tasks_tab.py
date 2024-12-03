@@ -1,10 +1,14 @@
+import datetime
+
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QPushButton, QDialog, QFormLayout,
     QLineEdit, QComboBox, QLabel, QMessageBox, QTextEdit, QHBoxLayout, QFrame, QScrollArea, QGridLayout
 )
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QColor, QPalette
-from datetime import datetime
+from PyQt6.QtGui import QColor
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QFont
+
 
 
 class DailyTasksTab(QWidget):
@@ -12,7 +16,30 @@ class DailyTasksTab(QWidget):
         super().__init__(parent)
         self.parent = parent
 
+        self.setup_ui()
+
+    def setup_ui(self):
+        self.setStyleSheet("""
+                QFrame {
+                    border: 1px solid #e0e0e0;
+                    border-radius: 10px;
+                    background-color: white;
+                    padding: 10px;
+                    margin-bottom: 10px;
+                }
+                QLabel {
+                    font-size: 14px;
+                }
+            """)
+
+
+
         self.layout = QVBoxLayout()
+
+        # Task Category
+        # category_label = QLabel(f"Category: {self.task_data[2]}")
+        # category_label.setFont(QFont("Arial", 12, QFont.Weight.Bold))
+        # layout.addWidget(category_label)
 
         # Add Task Button
         add_task_btn = QPushButton("Add New Task")
@@ -74,22 +101,6 @@ class DailyTasksTab(QWidget):
         layout.addWidget(complexity_label, 3, 1)
         layout.addWidget(points_earned_label, 4, 0)
         layout.addWidget(notes_label, 4, 1, 1, 2)
-
-        # Set card background color based on status
-        color = QColor()
-        if task[6] == "Completed":
-            color.setNamedColor("green")
-        elif task[6] == "In Progress":
-            color.setNamedColor("yellow")
-        elif task[6] == "Partially Completed":
-            color.setNamedColor("blue")
-        elif task[6] == "Not Started":
-            color.setNamedColor("white")
-
-        palette = card.palette()
-        palette.setColor(QPalette.ColorRole.Window, color)
-        card.setPalette(palette)
-        card.setAutoFillBackground(True)
 
         # Action buttons
         action_layout = QHBoxLayout()
@@ -198,29 +209,10 @@ class DailyTasksTab(QWidget):
 
         self.parent.conn.commit()
 
-        # Update skill mastery if task is completed
-        if status == "Completed":
-            self.update_skill_mastery(category, points_earned)
-
         # Refresh cards
         self.load_tasks()
         dialog.accept()
         QMessageBox.information(self, "Success", "Task added successfully!")
-
-    def update_skill_mastery(self, category, points):
-        self.parent.cursor.execute("SELECT * FROM skill_mastery WHERE skill_area=?", (category,))
-        skill = self.parent.cursor.fetchone()
-
-        if skill:
-            new_points = skill[3] + points
-            self.parent.cursor.execute("UPDATE skill_mastery SET points_earned=? WHERE skill_area=?",
-                                       (new_points, category))
-        else:
-            self.parent.cursor.execute(
-                "INSERT INTO skill_mastery (skill_area, max_points, points_earned, proficiency_level) VALUES (?, ?, ?, ?)",
-                (category, 100, points, "Beginner"))
-
-        self.parent.conn.commit()
 
     def open_edit_task_dialog(self, task):
         task_id = task[0]
@@ -267,7 +259,7 @@ class DailyTasksTab(QWidget):
         layout.addRow("Notes:", notes_input)
 
         # Save button
-        save_btn = QPushButton("Save Changes")
+        save_btn = QPushButton("Save Task")
         save_btn.clicked.connect(lambda: self.update_task(
             dialog, task_id, date_input.text(), category_input.currentText(), task_input.text(),
             planned_duration_input.text(), actual_duration_input.text(), complexity_input.currentText(),
@@ -316,10 +308,6 @@ class DailyTasksTab(QWidget):
         ))
 
         self.parent.conn.commit()
-
-        # Update skill mastery if task is completed
-        if status == "Completed":
-            self.update_skill_mastery(category, points_earned)
 
         # Refresh cards
         self.load_tasks()

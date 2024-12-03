@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="963a925f-eb8d-4c1f-9491-38c05d6cb70c" name="Changes" comment="milestone 3">
-      <change afterPath="$PROJECT_DIR$/database_setup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/home_tab.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/daily_tasks_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/daily_tasks_tab.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_tab.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/progress_tracking_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/progress_tracking_tab.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/skill_mastery_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/skill_mastery_tab.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/weekly_progress_tab.py" beforeDir="false" afterPath="$PROJECT_DIR$/weekly_progress_tab.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +34,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/blackswanalpha/TechQuest&quot;,
+    &quot;url&quot;: &quot;git@github.com:blackswanalpha/TechQuest&quot;,
     &quot;accountId&quot;: &quot;29dfcde0-12e4-4bdd-85fa-fd24165ab298&quot;
   }
 }</component>
